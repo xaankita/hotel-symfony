@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}TajHotel{% endblock %}</title>
+    {% block stylesheets %}
+        {# 'app' must match the first argument to addEntry() in webpack.config.js #}
+        {{ encore_entry_link_tags('app') }}
+
+        <!-- Renders a link tag (if your module requires any CSS)
+             <link rel="stylesheet" href="/build/app.css"> -->
+    {% endblock %}
+</head>
+<body>
+<div id="sidebar">
+    {% block sidebar %}
+        <ul>
+            <li><a href="/blog" class="hotelTag">Home</a></li>
+            <li><a href="/rooms" class="hotelTag">Rooms</a></li>
+            <li><a href="/facilities" class="hotelTag">Facilities</a></li>
+            <li><a href="/bookings" class="hotelTag">Bookings</a></li>
+            <li><a href="/contact" class="hotelTag">Contact</a></li>
+        </ul>
+    {% endblock %}
+</div>
+
+<div id="content">
+    {% block body %}{% endblock %}
+</div>
+</body>
+</html>
