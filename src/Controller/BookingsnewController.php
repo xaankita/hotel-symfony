@@ -8,12 +8,15 @@
 
 namespace App\Controller;
 
+use App\Form\BookingType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\CssSelector\CssSelectorConverter;
 use App\Entity\Bookings;
+use Doctrine\ORM\EntityManagerInterface;
 use DateTime;
 
 class BookingsnewController extends AbstractController
@@ -27,33 +30,21 @@ class BookingsnewController extends AbstractController
 			'controller_name' => 'BookingsnewController',
 		]);
 	}
-	/**
-	 * +      * @Route("/bookings/new1")
-	 * +      */
-	public function addBooking(): Response
+	
+	public function new(Request $request)
 	{
-		$entityManager = $this->getDoctrine()->getManager();
-		
 		$bookings = new Bookings();
-		$bookings->setUserid('ankita06');
-		$bookings->setName('ankita06');
-		$bookings->setEmailid('ankita@gmail.com');
-		$date = new DateTime();
-		$bookings->setEntrydate($date);
-		$bookings->setExitdate($date);
-		$bookings->setPhonenumber(1234567890);
-		
-		// tell Doctrine you want to (eventually) save the Product (no queries yet)
-		$entityManager->persist($bookings);
-		
-		// actually executes the queries (i.e. the INSERT query)
-		$entityManager->flush();
-		
-		return new Response('Saved new product with id '.$bookings->getId());
+		$form = $this->createForm(BookingType::class, $bookings, ['method' => 'GET']);
+		$form->handleRequest($request);
+		if ($form->isSubmitted() && $form->isValid()) {
+			$article = $form->getData();
+			$doc = $this->getDoctrine()->getManager();
+			$doc->persist($bookings);
+			$doc->flush();
+			return new RedirectResponse('/bookings/new1');
+		}
+		return $this->render("bookingsnew.html.twig", [
+			'form' => $form->createView(),
+		]);
 	}
-	
-	/*return $this->render('default/bookings.html.twig', [
-		'controller_name' => 'BookingsController',
-	]);*/
-	
 }

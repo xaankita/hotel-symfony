@@ -20,7 +20,7 @@ class BookingsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Bookings::class);
     }
-
+	
     // /**
     //  * @return Bookings[] Returns an array of Bookings objects
     //  */

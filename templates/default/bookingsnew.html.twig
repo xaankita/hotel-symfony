@@ -3,11 +3,12 @@
 {% block body %}
     <div class="bookingsDetails">
         <h1 class="bookingsDetails_Title">Bookings done on this page</h1>
-        <label for="name" class="text-information">name</label>
-        <input type="number" id="form_label" name="form[age]" />
-        <label for="name" class="text-information">email</label>
-        <input type="number" id="form_label" name="form[age]" />
 
-        <a href="/bookings/new1" class="bookingsTag">Bookings detail</a></li>
+        {{ form_start(form, { 'method': 'GET'}) }}
+        {{ form_end(form) }}
+
+    </div>
+
+    <a href="/bookings/new1" class="bookingsTag">Bookings detail</a></li>
 
 {% endblock %}
