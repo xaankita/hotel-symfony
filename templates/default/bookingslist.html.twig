@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+
+
+        <h2> List</h2>
+
+        <table class = "table">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Emailid</th>
+                <th>Entrydate</th>
+                <th>Exitdate</th>
+                <th>Phonenumber</th>
+            </tr>
+            {% for x in list %}
+                <tr>
+                    <td>{{ x.Id }}</td>
+                    <td><a href="/bookings/new1{{ x.Id }}"> {{ x.Userid }}</a></td>
+                    <td>{{ x.Emailid }}</td>
+
+                </tr>
+
+            {% endfor %}
+        </table>
+
+   
+
+{% endblock %}
+

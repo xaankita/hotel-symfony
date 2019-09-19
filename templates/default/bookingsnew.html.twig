@@ -4,11 +4,10 @@
     <div class="bookingsDetails">
         <h1 class="bookingsDetails_Title">Bookings done on this page</h1>
 
-        {{ form_start(form, { 'method': 'GET'}) }}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
         {{ form_end(form) }}
-
     </div>
 
-    <a href="/bookings/new1" class="bookingsTag">Bookings detail</a></li>
 
 {% endblock %}
