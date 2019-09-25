@@ -5,29 +5,32 @@
 {% block body %}
 
 
-        <h2> List</h2>
+        <h2> List of bookings</h2>
 
-        <table class = "table">
+        <table class = "table table-striped">
             <tr>
                 <th>ID</th>
+                <th>userid</th>
                 <th>Name</th>
                 <th>Emailid</th>
-                <th>Entrydate</th>
-                <th>Exitdate</th>
                 <th>Phonenumber</th>
-            </tr>
-            {% for x in list %}
-                <tr>
-                    <td>{{ x.Id }}</td>
-                    <td><a href="/bookings/new1{{ x.Id }}"> {{ x.Userid }}</a></td>
-                    <td>{{ x.Emailid }}</td>
+                <th>Action</th>
 
+            </tr>
+            {% for list in booking %}
+                <tr>
+                    <td>{{ list.Id }}</td>
+                    <td><a href="/bookings/{{list.Id }}"> {{ list.Userid }}</a></td>
+                    <td>{{ list.name }}</td>
+                    <td>{{ list.emailid }}</td>
+                    <td>{{ list.phonenumber }}</td>
+                    <td><a href="/bookings/delete/{{ list.Id }}">Delete</a></td>
                 </tr>
 
             {% endfor %}
         </table>
 
-   
+
 
 {% endblock %}
 

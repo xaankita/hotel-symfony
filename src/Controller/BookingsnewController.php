@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use App\Form\BookingType;
 use PhpParser\Builder\Method;
+use function PHPSTORM_META\type;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,6 +21,7 @@ use App\Entity\Bookings;
 use Doctrine\ORM\EntityManagerInterface;
 use DateTime;
 use Symfony\Component\Yaml\Tests\B;
+
 
 class BookingsnewController extends AbstractController
 {
@@ -77,20 +79,21 @@ class BookingsnewController extends AbstractController
 	}
 	
 	
-	
 	/**
-	 * @Route("/bookings/list")
+	 * @Route("/bookings/list", name="booking_list")
 	 */
 	
-	public function list() {
+	public function list()
+	{
 		
 		$repository = $this->getDoctrine()->getRepository(Bookings::class);
 		$bookings = $repository->findAll();
 		
 		return $this->render('default/bookingslist.html.twig', array(
-			'bookings' => $bookings));
-			//"param1" => "test",
-			
+			'booking' => $bookings));
+		
+		//"param1" => "test",
+		
 		
 	}
 	
@@ -110,7 +113,23 @@ class BookingsnewController extends AbstractController
 			);
 		}
 		
-		return new Response('Name: ' . $bookings->getName() . '<br/>Email id: '.$bookings->getEmailid() .'<br/>Phone number: '. $bookings->getPhonenumber());
+		return new Response('Name: ' . $bookings->getName() . '<br/>Email id: ' . $bookings->getEmailid() . '<br/>Phone number: ' . $bookings->getPhonenumber());
+	}
+	
+	/**
+	 * @Route("/bookings/delete/{id}", name="booking_delete")
+	 *
+	 */
+	public function delete($id)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$repository = $em->getRepository(Bookings::class);
+		$delete = $repository->find($id);
+		$em->remove($delete);
+		$em->flush();
+		return new RedirectResponse('/bookings/list');
+		
 	}
 	
 }
+
