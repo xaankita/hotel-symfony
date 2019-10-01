@@ -130,6 +130,27 @@ class BookingsnewController extends AbstractController
 		return new RedirectResponse('/bookings/list');
 		
 	}
+	/**
+	 * @Route("bookings/edit/{id} ", name="booking_edit")
+	 */
+	public function edit(Request $request, $id)
+	{
+		$doc = $this->getDoctrine()->getManager();
+		$repository = $doc->getRepository(Bookings::class);
+		$booking = $repository->find($id);
+		$form = $this->createForm(BookingType::class, $booking, ['method' => 'GET']);
+		$form->handleRequest($request);
+		if ($form->isSubmitted() && $form->isValid()) {
+			$booking = $form->getData();
+			$doc = $this->getDoctrine()->getManager();
+			$doc->persist($booking);
+			$doc->flush();
+			return new RedirectResponse('/bookings/list');
+		}
+		return $this->render('default/bookingsedit.html.twig',[
+			'form' => $form->createView(),
+		]);
+	}
 	
 }
 
