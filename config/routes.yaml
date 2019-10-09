@@ -1,3 +1,4 @@
 #app_hotel:
  #path: /blog
 #controller: App\Controller\HotelController :: hotel
+
